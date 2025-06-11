@@ -16,7 +16,7 @@ const CalculatorApp = () => {
           marginBottom: 20,
         }}
       >
-        <CustomText variant="h1">50 x 50</CustomText>
+        <CustomText variant="h1">{formule}</CustomText>
         <CustomText variant="h2">250</CustomText>
       </View>
 

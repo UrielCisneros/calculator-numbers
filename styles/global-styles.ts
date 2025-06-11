@@ -41,6 +41,7 @@ export const globalStyles = StyleSheet.create({
     textAlign: 'center',
     padding: 10,
     fontSize: 30,
-    color: Colors.textPrimary
+    color: Colors.textPrimary,
+    fontFamily: 'SpaceMono'
   }
 });
