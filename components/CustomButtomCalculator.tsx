@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { globalStyles } from "@/styles/global-styles";
+import * as Haptics from 'expo-haptics';
 import React from "react";
 import { Pressable, Text } from "react-native";
 
@@ -34,7 +35,10 @@ const CustomButtomCalculator = ({
         backgroundColor: buttonColor,
         opacity: pressed ? 0.8 : 1,
       })}
-      onPress={onPress}
+      onPress={() => {
+        Haptics.selectionAsync();
+        onPress && onPress();
+      }}
     >
       <Text
         style={[
