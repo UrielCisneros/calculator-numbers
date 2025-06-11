@@ -8,7 +8,7 @@ interface Props {
   label: string;
   variant: "number" | "operation" | "clear";
   blackText?: boolean;
-  onPress?: () => void;
+  onPress: () => void;
   dobleSize?: boolean
 }
 
@@ -37,7 +37,7 @@ const CustomButtomCalculator = ({
       })}
       onPress={() => {
         Haptics.selectionAsync();
-        onPress && onPress();
+        onPress();
       }}
     >
       <Text
