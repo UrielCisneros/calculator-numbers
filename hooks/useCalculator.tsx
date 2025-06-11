@@ -14,7 +14,7 @@ export const useCalculator = () => {
     const [number, setNumber] = useState('0');
     const [prevNumber, setPrevNumber] = useState('0');
 
-    const lastOperation = useRef<Operator>(Operator.add);
+    const lastOperation = useRef<Operator>(undefined);
 
     useEffect(() => {
       //Todo: calculate result
@@ -36,6 +36,25 @@ export const useCalculator = () => {
         setNumber(number + numberString)
     }
 
+    const clear = () => {
+        setFormule('0');
+        setNumber('0');
+        setPrevNumber('0');
+        lastOperation.current = undefined;
+    }
+
+    const toogleSign = () => {
+        if(number === '0') return;
+        if(number.includes('-'))return setNumber(number.replace('-',""));
+        return setNumber("-" + number);
+    }
+
+    const deleteLastNum = () => {
+        let newNum =  number.slice(0 ,-1);
+        if(newNum.includes('-') && newNum.length === 1) newNum = '';
+        return setNumber(newNum === '' ? '0' : newNum);
+    }
+
 
     return {
         //Props
@@ -43,7 +62,10 @@ export const useCalculator = () => {
         number,
         prevNumber,
         //Methods
-        buildNumber
+        buildNumber,
+        clear,
+        toogleSign,
+        deleteLastNum
     }
 
 }
