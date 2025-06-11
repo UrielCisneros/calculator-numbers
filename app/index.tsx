@@ -6,7 +6,19 @@ import React from "react";
 import { View } from "react-native";
 
 const CalculatorApp = () => {
-  const { formule, buildNumber, clear, toogleSign, deleteLastNum } = useCalculator();
+  const {
+    formule,
+    prevNumber,
+    buildNumber,
+    clear,
+    toogleSign,
+    deleteLastNum,
+    divideOperation,
+    multiplyOperation,
+    sumOperation,
+    subtractOperation,
+    doneOperation
+  } = useCalculator();
 
   return (
     <View style={globalStyles.calculatorContainer}>
@@ -17,7 +29,11 @@ const CalculatorApp = () => {
         }}
       >
         <CustomText variant="h1">{formule}</CustomText>
-        <CustomText variant="h2">250</CustomText>
+        {formule === prevNumber ? (
+          <CustomText variant="h2"> </CustomText>
+        ) : (
+          <CustomText variant="h2">{prevNumber}</CustomText>
+        )}
       </View>
 
       {/* Filas de botones */}
@@ -42,7 +58,7 @@ const CalculatorApp = () => {
           label="del"
         />
         <CustomButtomCalculator
-          onPress={() => console.log("%")}
+          onPress={divideOperation}
           variant="operation"
           label="%"
         />
@@ -66,7 +82,7 @@ const CalculatorApp = () => {
           label="3"
         />
         <CustomButtomCalculator
-          onPress={() => console.log("X")}
+          onPress={multiplyOperation}
           variant="operation"
           label="X"
         />
@@ -89,7 +105,7 @@ const CalculatorApp = () => {
           label="6"
         />
         <CustomButtomCalculator
-          onPress={() => console.log("-")}
+          onPress={subtractOperation}
           variant="operation"
           label="-"
         />
@@ -112,7 +128,7 @@ const CalculatorApp = () => {
           label="9"
         />
         <CustomButtomCalculator
-          onPress={() => console.log("+")}
+          onPress={sumOperation}
           variant="operation"
           label="+"
         />
@@ -130,7 +146,7 @@ const CalculatorApp = () => {
           label="."
         />
         <CustomButtomCalculator
-          onPress={() => console.log("=")}
+          onPress={doneOperation}
           variant="operation"
           label="="
         />
