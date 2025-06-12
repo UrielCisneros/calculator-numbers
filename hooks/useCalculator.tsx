@@ -16,14 +16,13 @@ export const useCalculator = () => {
   const lastOperation = useRef<Operator>(undefined);
 
   useEffect(() => {
-    if(lastOperation.current){
-        const firstFormulaPart = formule.split(' ').at(0);
-        setFormule(`${firstFormulaPart} ${lastOperation.current} ${number}`)
-    }else{
-        setFormule(number);
+    if (lastOperation.current) {
+      const firstFormulaPart = formule.split(" ").at(0);
+      setFormule(`${firstFormulaPart} ${lastOperation.current} ${number}`);
+    } else {
+      setFormule(number);
     }
-  }, [number])
-  
+  }, [number]);
 
   useEffect(() => {
     //Todo: calculate result
@@ -42,6 +41,7 @@ export const useCalculator = () => {
         return setNumber(numberString);
       if (numberString === "0" && !number.includes(".")) return;
     }
+
     setNumber(number + numberString);
   };
 
@@ -65,53 +65,57 @@ export const useCalculator = () => {
   };
 
   const setLastNumber = () => {
+    doneOperation();
     if (number.endsWith(".")) setPrevNumber(number.slice(0, -1));
     setPrevNumber(number);
     setNumber("0");
   };
 
   const divideOperation = () => {
-    lastOperation.current = Operator.divide;
     setLastNumber();
+    lastOperation.current = Operator.divide;
   };
   const multiplyOperation = () => {
-    lastOperation.current = Operator.multy;
     setLastNumber();
+    lastOperation.current = Operator.multy;
   };
 
   const sumOperation = () => {
-    lastOperation.current = Operator.add;
     setLastNumber();
+    lastOperation.current = Operator.add;
   };
 
   const subtractOperation = () => {
-    lastOperation.current = Operator.subtract;
     setLastNumber();
+    lastOperation.current = Operator.subtract;
   };
 
   const calculateResult = () => {
-    const [firstNumVal, operation, secondNumVal] = formule.split(' ');
+    const [firstNumVal, operation, secondNumVal] = formule.split(" ");
     const num1 = Number(firstNumVal);
     const num2 = Number(secondNumVal);
-    if(isNaN(num2)) return num1
+    if (isNaN(num2)) return num1;
 
-    switch(operation){
-        case Operator.add:
-            return num1 + num2;
-        case Operator.divide:
-            return num1 / num2;
-        case Operator.multy:
-            return num1 * num2;
-        case Operator.subtract:
-            return num1 - num2;
-        default:
-            return 0;
+    switch (operation) {
+      case Operator.add:
+        return num1 + num2;
+      case Operator.divide:
+        return num1 / num2;
+      case Operator.multy:
+        return num1 * num2;
+      case Operator.subtract:
+        return num1 - num2;
+      default:
+        return 0;
     }
-  }
+  };
 
   const doneOperation = () => {
-    // setNumber(toString(calculateResult()))
-  }
+    const result = calculateResult();
+    setFormule(`${result}`);
+    lastOperation.current = undefined;
+    setPrevNumber("0");
+  };
 
   return {
     //Props
@@ -124,10 +128,10 @@ export const useCalculator = () => {
     clear,
     toogleSign,
     deleteLastNum,
-    divideOperation,    
+    divideOperation,
     multiplyOperation,
     sumOperation,
     subtractOperation,
-    doneOperation
+    doneOperation,
   };
 };
